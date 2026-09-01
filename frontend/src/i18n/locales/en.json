@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Local Services",
+    "jobs": "Work & Jobs",
+    "equipment": "Equipment Rental",
+    "complaints": "Civic Complaints",
+    "schemes": "Govt Schemes",
+    "announcements": "Announcements",
+    "emergency": "Emergency",
+    "dashboard": "Panchayat Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "hero": {
+    "title": "GramConnect — Rural Digital Platform",
+    "subtitle": "Connecting villagers with local services, job opportunities, farm equipment rentals, government welfare schemes, and civic problem resolution.",
+    "exploreServices": "Find Local Services",
+    "viewJobs": "Find Village Jobs",
+    "rentTractor": "Rent Equipment",
+    "fileComplaint": "Report Village Issue"
+  },
+  "stats": {
+    "services": "Verified Services",
+    "jobs": "Active Jobs",
+    "equipment": "Machinery Listings",
+    "complaintsResolved": "Issues Resolved"
+  },
+  "services": {
+    "title": "Local Services & Skilled Workers",
+    "subtitle": "Find trusted electricians, plumbers, masons, carpenters, and technicians in your village.",
+    "searchPlaceholder": "Search by skill (e.g. Electrician, Plumber)...",
+    "verified": "Verified",
+    "bookNow": "Book Service",
+    "rateCard": "Rate Card"
+  },
+  "jobs": {
+    "title": "Rural Jobs & Agricultural Work",
+    "subtitle": "Daily wage opportunities for harvesting, plowing, construction, and seasonal labor.",
+    "postJob": "Post a Job (Farmers/Employers)",
+    "applyNow": "Apply for Job",
+    "dailyWage": "Daily Wage",
+    "needed": "needed",
+    "spotsLeft": "spots remaining",
+    "filled": "Capacity Filled"
+  },
+  "equipment": {
+    "title": "Farm Machinery & Equipment Rental",
+    "subtitle": "Rent tractors, rotavators, harvesters, and water pumps directly from local owners.",
+    "dailyRate": "per day",
+    "hourlyRate": "per hour",
+    "bookEquipment": "Book Machinery",
+    "operational": "Operational",
+    "underMaintenance": "Under Maintenance"
+  },
+  "complaints": {
+    "title": "Civic Grievance & SLA Tracking",
+    "subtitle": "Report drinking water issues, street light outages, road damage, and sanitation problems with guaranteed Panchayat resolution timelines.",
+    "fileNew": "File New Grievance",
+    "slaDeadline": "SLA Deadline",
+    "upvote": "Support Issue",
+    "status": "Status"
+  },
+  "schemes": {
+    "title": "Government Schemes & Welfare",
+    "subtitle": "Discover central and state welfare benefits you qualify for with automated eligibility screening.",
+    "checkEligibility": "Check My Eligibility",
+    "applyOfficial": "Official Portal",
+    "saveScheme": "Save Scheme"
+  }
+}

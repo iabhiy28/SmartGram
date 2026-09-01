@@ -1,0 +1,99 @@
+services:
+  # ----------------------------------------------------------------------------
+  # PostgreSQL 16 Database
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: gramconnect-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gramconnect_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gramconnect_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gramconnect-network
+
+  # ----------------------------------------------------------------------------
+  # Redis 7 In-Memory Store
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: gramconnect-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gramconnect-network
+
+  # ----------------------------------------------------------------------------
+  # Spring Boot 3.3 Backend API
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gramconnect-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: gramconnect_db
+      DB_USER: postgres
+      DB_PASSWORD: postgrespassword
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - gramconnect-network
+
+  # ----------------------------------------------------------------------------
+  # React 18 + Vite Frontend
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gramconnect-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    networks:
+      - gramconnect-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  gramconnect-network:
+    driver: bridge

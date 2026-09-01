@@ -1,0 +1,78 @@
+# Render Infrastructure as Code (Blueprint)
+# Deploy PostgreSQL, Redis, Spring Boot Backend, and React Frontend in 1 Click
+
+services:
+  # 1. Spring Boot Backend Web Service
+  - type: web
+    name: gramconnect-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    region: singapore
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_HOST
+        fromDatabase:
+          name: gramconnect-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: gramconnect-postgres
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: gramconnect-postgres
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: gramconnect-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: gramconnect-postgres
+          property: password
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: gramconnect-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: gramconnect-redis
+          property: port
+      - key: JWT_SECRET
+        generateValue: true
+
+  # 2. React Frontend Static Site
+  - type: web
+    name: gramconnect-frontend
+    env: static
+    buildCommand: cd frontend && npm install --legacy-peer-deps && npm run build
+    staticPublishPath: ./frontend/dist
+    region: singapore
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: gramconnect-backend
+          property: host
+
+databases:
+  # 3. Managed PostgreSQL 16
+  - name: gramconnect-postgres
+    databaseName: gramconnect_db
+    user: gramconnect_admin
+    plan: starter
+    region: singapore
+
+  # 4. Managed Redis 7
+  - name: gramconnect-redis
+    plan: starter
+    region: singapore
