@@ -1,6 +1,9 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-export const API_BASE_URL = '/api/v1';
+const envApiUrl = import.meta.env.VITE_API_URL;
+export const API_BASE_URL = envApiUrl
+  ? (envApiUrl.startsWith('http') ? `${envApiUrl.replace(/\/$/, '')}/api/v1` : `https://${envApiUrl.replace(/\/$/, '')}/api/v1`)
+  : '/api/v1';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
