@@ -1,0 +1,71 @@
+# ==========================================
+# Operating System & Editor Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+*.ipr
+*.iws
+.settings/
+.classpath
+.project
+
+# VS Code (preserve extensions/settings if desired)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ==========================================
+# Environment Variables & Logs
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# Backend: Java / Maven Spring Boot
+# ==========================================
+target/
+**/target/
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+# Ensure maven wrapper jar is tracked
+!**/.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+
+# ==========================================
+# Frontend: Node / Vite / React / TypeScript
+# ==========================================
+node_modules/
+**/node_modules/
+frontend/node_modules/
+dist/
+**/dist/
+frontend/dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
+.npm/
+.eslintcache
+.vite/
